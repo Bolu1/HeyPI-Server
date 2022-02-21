@@ -8,4 +8,4 @@ const userSchema =mongoose.Schema({
     img: {type: String, default:'q.jpg'}
 })
 
-module.exports = mongoose.model('user', userSchema)
+module.exports = mongoose.model('userss', userSchema)
