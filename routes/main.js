@@ -98,7 +98,7 @@ router.post('/see', checkAuth, (req,res,next)=>{
     
     const pageSize = 10
     const page = parseInt(req.query.page || "0")
-    const l = req.body.search
+    const l =  " "
     apis.find({ 
         email: req.body.name,
         description : { "$regex": l, "$options": "i" }})
@@ -111,11 +111,27 @@ router.post('/see', checkAuth, (req,res,next)=>{
         res.status(401).json({error:err})
     })
 })
+ 
+router.post('/seeme', checkAuth, (req,res,next)=>{
+   const pageSize = 10
+    const page = parseInt(req.query.page || "0")
+    l = " "
+    apis.find({ description : { "$regex": l, "$options": "i" }})
+    .limit(pageSize)
+    .skip(pageSize*page)
+    .select('email description')
+    .then(docs =>{   
+        res.status(200).json(docs)
+    }) 
+    .catch(err =>{
+        res.status(404).json({err:err})
+    })
+})
 
 router.post('/addusers', (req,res,next)=>{
-    User.find({email: req.body.email}).exec()
+    User.findOne({email: req.body.email}).exec()
     .then(result=>{
-        if(result.length > 0){
+        if(result){
             res.status(500).json({message:  "This Email already belongs to a user"})
             return
         }

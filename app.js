@@ -15,7 +15,10 @@ app.use(expressSession({secret: 'max', saveUninitialized: false, resave:false}))
 
 app.use(morgan('dev'))
 
-mongoose.connect('mongodb://localhost:27017/adler')
+const CONNECTION_URL  = 'mongodb+srv://user_0:user_0@cluster0.llrik.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const PORT = process.env.PORT || 5000
+
+mongoose.connect(CONNECTION_URL)
 
 
 app.engine('hbs', exphbs({
