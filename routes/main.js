@@ -67,7 +67,7 @@ router.post('/addc', (req,res,next)=>{
     console.log( req.body.language)
     const api = new apis({
         _id:  new mongoose.Types.ObjectId(),
-        email: "admin",
+        email: req.body.name,
         description: req.body.description,
         code: req.body.code,
         language: req.body.language,
